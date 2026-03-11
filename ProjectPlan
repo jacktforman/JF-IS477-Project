@@ -1,24 +1,52 @@
-Overview: Describe the overall goal of your project and your planned approach to achieve it. Explain what you aim to accomplish and outline the main steps or methods you will use to execute the project (max 250 words).
-Team: Clearly define team member roles and responsibilities.
-Research or Business Question(s): What is/are the question(s) you intend to address? These could be research questions, business questions, or analytical questions you want to answer through data analysis.
-Datasets: Identify and describe the datasets you will use to answer your question(s). You need to use at least two different datasets that complement each other and can be integrated together. The datasets should each contribute different but related information needed to address your questions, and they must share common attributes or identifiers that allow you to link them. For example, if one dataset contains demographic information and another contains economic indicators, they should both include geographic codes or time periods that enable meaningful integration.If you need help finding suitable datasets, start by reviewing the list of datasets provided in class. 
-Kaggle Clause: First, they can be analysis-ready, which does not reflect the real-world data wrangling challenges this project is designed to teach. Second, and more importantly, Kaggle datasets often have dubious provenance and unclear licensing: it is frequently difficult to trace where the data originally came from, how it was collected, and under what terms it can be reused. This raises concerns about data quality, ethical use, and reproducibility, all of which are central to this course. Projects using Kaggle datasets will therefore receive a 5% reduction in the final grade unless accompanied by a strong justification. Justifications will be evaluated on a case-by-case basis and must address three points: 
-(i) why this particular dataset was selected
-(ii) what alternative datasets exist in the domain of interest, including a list of sources considered and the reasons they were not suitable, and 
-(iii) why the project objectives were not adjusted to accommodate the limitations of available non-Kaggle data. 
-Timeline: Provide a draft of the plan and timeline for completing your project. Include a list of specific tasks you need to accomplish, a brief description of each task, when each task will be completed, and who will be responsible for completing it..
-Your plan must clearly address each of the requirements described above
-Constraints: Describe any known limitations or challenges with your datasets or approach. These might include legal or ethical restrictions, unknown data provenance, technical difficulties in processing the data, issues with data completeness, limited temporal or spatial coverage, accessibility barriers, or other relevant concerns that could affect your work..
-Gaps: Identify any known gaps or areas where you need additional input.
-Your plan should anticipate later course topics even if you don’t yet know all the details. It is expected that your plan will evolve over time.
-Submit your plan
-Add and commit your ProjectPlan.md and any other related artifacts (such as images, preliminary code, etc).
-Push your changes to GitHub
-Create a project-plan tag and release.
-Submit the URL to your project-plan release via Canvas
-Expectation:
-The ProjectPlan.md comprise contributions by both members of the team. The Individual contributions are evident by the Git commit history.
-The ProjectPlan.md is correctly formatted and structured in Markdown.
-Your question(s) should be well-defined and directly answerable using the datasets you have selected.
-All required information outlined above must be clearly addressed in your proposal.
-Note: After grading, you will be required to update your project plan based on feedback given. This updated project plan will then be submitted as part of Milestone 3 (Status Report).
+#Project Title
+Blade vs Mallet: A Data Analysis of Putting Performance of Differing Designs on the PGA Tour
+
+#Overview
+Putting is one of the most important and highly debated parts of golf performance. In the current landscape of golf, two designs rank supreme: The blade, aptly named for its knifelike shape; and the mallet, which resembles more of a pancake shape. Players of the PGA tour argue about which design leads to better results. Blades are usually associated with better feel and homage to traditional designs. Mallet putters are associated more with forgiveness and alignment support, coming onto the scene more recently. This project investigates whether putter design is associated with any measureable differences in putting performance on the PGA Tour
+
+To answer this question, this project will integrate two datasets from different origins. The first dataset will come from ESPN's PGA Tour player statistics pages, which provide structured player statistics by season, including putting-related statistics such as putts per hole. The second dataset will be built by scraping GolfWRX "What's in the Bag" pages, which name the putter model used by individual professional golfers. These equipment records will be transformed into a structured dataset and classified into putter types such as blade or mallet. A secondary validation source will be used, GOLF.com's article on the top 2025 PGA Tour Strokes gained.
+
+This project will follow the data lifecycle discussed in class: acquisition, storage, cleaning, integration, quality assessment, analysis, visualization, and workflow automation. The final output will include reproducible scripts, project documentation, and a set of findings about the relationship between putter type and putting performance.
+
+#Team
+I will be working alone on this project, and will be handling all roles and responsibilities as per the data lifecycle.
+
+#Research Questions
+The main research question for this project is: "Does putter design between blade and mallet correlate with differences in PGA Tour putting performance?"
+
+To answer this question, the project will investigate the following more specfic questions:
+1. Do players using mallet putters have lower putts-per-hole values than players using blade putters?
+2. Among the highest-performing putters on tour, what proportion use mallet putters versus blade putters?
+3. Are there observable differences in average putting performance between players using blade putters and players using mallet putters?
+4. Can putter model information from equipment pages be reliably transformed into a consistent categorical variable for equipment analysis?
+
+#Datasets
+Dataset 1: ESPN PGA Tour Player Statistics
+The first dataset will come from ESPN’s PGA Tour statistics pages. ESPN publishes season-based player rankings with structured tabular data, including player names and performance metrics. One relevant example is the 2025 PGA Tour player stats table sorted by putts per hole. The page includes player names, rankings, and a putts metric that can be scraped directly from the HTML. This is useful because it provides a public, structured, and repeatable source of player-level putting performance data.
+
+Planned variables include:
+- player_name
+- season
+- rank
+- putts_per_hole
+-rounds_played
+
+This dataset is relevant because as a structured web table, it provides quantitative data to be used for analysis. It is different in format and origin from the equipment data source.
+
+Dataset 2: GolfWRX “What’s in the Bag” Equipment Data
+The second dataset will be created from GolfWRX’s “What’s in the Bag” archive and selected player-specific WITB pages. The archive contains PGA player pages with repeated structure and visible player names. These pages include detailed lists of clubs in each player’s bag, including the putter model. This source is relevant because it provides the equipment side of the project.
+
+Planned variables include:
+- player_name
+- article_date
+- putter_model
+- putter_brand
+- putter_type (derived: blade or mallet)
+- source_url
+
+This dataset is not available as a prebuilt CSV, so it will require converting semi-structured equipment information into a structured tabular format.
+
+Datase 3 - Secondary Validation Source - GOLF.com
+To strengthen data quality and classification accuracy, this project will also use GOLF.com’s article listing the top 2025 PGA Tour Strokes Gained: Putting leaders and the putters they used. This source explicitly maps top players such as Sam Burns and Taylor Montgomery to named putter models and also notes when a player switched putters during the season. This will not serve as the main second dataset, but it will be used to validate a subset of putter classifications and to document uncertainty in equipment assignment.
+
+#Data Lifecycle
