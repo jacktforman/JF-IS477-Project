@@ -16,9 +16,43 @@ I built two datasets for this project. The first covers the top 20 and bottom 20
 
 The data tells a pretty consistent story across both sources. Among the 20 best putters on the 2025 PGA Tour, 85% used mallets. Among the 20 worst, that drops to 55%, a 30-point gap. At the Masters, 90% of the top-10 finishers used mallets, and mallet users averaged -6.23 to par compared to -5.70 for blade users. So on the surface it looks like mallets are associated with better results.
 
-The more interesting finding is what happens when you look within each group. Among the top 20, mallet users averaged +0.585 SG:Putting and blade users averaged +0.578. Among the bottom 20, mallets averaged -0.553 and blades averaged -0.577. Those gaps are essentially nothing, less than 0.025 strokes per round. So within each performance tier, putter type does not seem to matter much. The large overall gap between all mallet users (+0.138) and all blade users (-0.288) is driven by composition: mallets are just much more common among the best putters. Whether that means mallets help performance or that good putters tend to choose mallets is something this data cannot answer.
+The more interesting finding is what happens when you look within each group. Among the top 20, mallet users averaged +0.585 SG:Putting and blade users averaged +0.578. Among the bottom 20, mallets averaged -0.553 and blades averaged -0.577. Those gaps are essentially nothing, less than 0.025 strokes per round. Within each performance tier, putter type does not seem to matter much at all. The large overall gap between all mallet users (+0.138) and all blade users (-0.288) is driven by composition: mallets are just much more common among the best putters. Whether that means mallets help performance or that good putters tend to choose mallets is something this data cannot answer.
 
 The four research questions guiding this project are: (1) Do mallet users have higher SG:Putting values than blade users? (2) Among the top putters on Tour, what proportion use mallets? (3) Are there observable differences in average putting performance by putter type? (4) Can putter model information from equipment sources be reliably turned into a usable categorical variable?
+
+This project follows the data lifecycle from acquisition through storage, cleaning, integration, quality assessment, analysis, and workflow automation. The approach maps most directly to the curation-focused lifecycle model discussed in class, where the goal is to produce a clean, documented, integrated dataset that supports reproducible analysis.
+
+---
+
+## Data Lifecycle
+
+This project follows the data curation lifecycle from Module 1. Starting from raw acquisition, data moves through storage and organization, cleaning, integration, quality assessment, analysis, and finally documentation and publication. Each stage is handled by a dedicated script or notebook, and the full pipeline is automated through run_all.py so that any stage can be reproduced independently or end to end.
+
+The two datasets come from different origins and serve different roles in the lifecycle. The PGA Tour SG:Putting dataset is the primary performance source and drives the statistical analysis. The Masters leaderboard dataset adds tournament-level context and was integrated after the tournament concluded, extending the project scope mid-cycle. Both datasets are preserved in their original form in data/raw/ and are never overwritten, which keeps the provenance chain intact from raw source to final output.
+
+---
+
+## Storage and Organization
+
+All files in this project are plain text formats: CSV for data and Markdown for documentation. No binary formats or proprietary file types are used, which keeps everything readable without special software and supports long-term accessibility.
+
+The data directory uses a three-tier structure that separates raw inputs, cleaned outputs, and integrated outputs into distinct folders. Raw files in data/raw/ are never modified after collection. Cleaning and integration scripts read from raw and write new files to data/cleaned/ and data/integrated/ respectively. This separation makes it clear which files are original sources and which are derived, and it means the raw data is always available as a fallback if something goes wrong downstream.
+
+Scripts are separated from data in their own scripts/ folder. Notebooks that handle cleaning and quality assessment live at the repository root so that run_all.py can call them without path complications. Visualizations go to results/ and logs from each pipeline step go to logs/. Every folder name reflects its function and every file name reflects its content and origin.
+
+---
+
+## Ethical Data Handling
+
+All data used in this project is derived from publicly available sources and involves publicly competing professional athletes whose performance statistics and equipment choices are routinely reported in sports journalism. No private, sensitive, or personally identifiable information is collected or stored at any point.
+
+**Consent and privacy:** PGA Tour players compete publicly and their performance statistics and equipment choices are published by the Tour itself and covered extensively in sports media. There is no reasonable expectation of privacy around this information, and no consent process is required for this type of public performance data used in academic research.
+
+**Copyright and terms of use:** PGA Tour statistics are publicly accessible on pgatour.com. The data used here was not scraped directly from that page but compiled from a secondary analytical article (edensteak.com) that aggregated publicly available Tour stats. Equipment data comes from sports journalism outlets (Golf Monthly, EssentiallySports, MyGolfSpy, Sky Sports) whose content is publicly accessible. All sources are cited per row in the dataset. No paywalled content was accessed. This project uses the information for non-commercial academic research and does not reproduce substantial portions of any source article.
+
+**Licenses:** The curated datasets produced by this project are released under CC BY 4.0, which allows reuse with attribution. All code is released under the MIT License. Both licenses are documented in the LICENSE file.
+
+**Data redistribution:** The raw CSV files included in this repository are original compilations, not redistribution of a third-party dataset. Each row cites the specific journalism source used to confirm that player's equipment. The underlying PGA Tour statistics referenced are publicly available at pgatour.com/stats/putting.
 
 ---
 
@@ -30,9 +64,9 @@ The four research questions guiding this project are: (1) Do mallet users have h
 
 **Source:** PGA Tour official statistics for the 2025 FedExCup season, compiled via an analytical article from edensteak.com that cross-referenced the official PGA Tour stats page with equipment records for each player.
 
-**Access method:** Manual structured extraction from publicly available web sources. The PGA Tour stats page is JavaScript-rendered and does not expose a public API, so automated scraping was not practical. The Eden Steak article had already cross-referenced equipment with the stats in a structured format, which made it a cleaner and more reproducible source than trying to scrape the underlying page directly.
+**Access method:** Manual structured extraction from publicly available web sources. The PGA Tour stats page is JavaScript-rendered and does not expose a public API, so automated scraping was not practical. The Eden Steak article had already cross-referenced equipment with the stats in a structured format, which made it a cleaner and more reproducible source than trying to scrape the underlying page directly. SHA-256 checksums for the raw files are documented in scripts/acquire.py and verified at the start of every pipeline run.
 
-**Structure:** 40 rows, 10 columns (raw); 40 rows, 11 columns (cleaned, with a derived putter_era column added during cleaning).
+**Structure:** 40 rows, 10 columns (raw); 40 rows, 11 columns (cleaned, with a derived putter_era column).
 
 **Unit of observation:** One player for one season.
 
@@ -40,7 +74,7 @@ The four research questions guiding this project are: (1) Do mallet users have h
 
 - rank: Integer. SG:Putting season rank (1 = best putter on Tour)
 - player_name: String. Full player name
-- sg_putting_avg: Float. Season SG:Putting average. Positive values mean strokes gained relative to the field; negative means strokes lost. Adjusted for putt distance.
+- sg_putting_avg: Float. Season SG:Putting average. Positive means strokes gained relative to field; negative means strokes lost. Adjusted for putt distance.
 - putter_type: String. Controlled vocabulary: blade or mallet
 - putter_brand: String. Manufacturer (e.g., TaylorMade, Scotty Cameron, Odyssey)
 - putter_model: String. Specific model name
@@ -51,8 +85,6 @@ The four research questions guiding this project are: (1) Do mallet users have h
 
 **Coverage:** This dataset only covers the top and bottom 20 players, roughly 22% of the full ranked player pool. Players ranked 21st through about 160th are not included. This is a known limitation discussed in the Data Quality section.
 
-**Ethical and legal constraints:** All data comes from publicly available statistics and journalism. PGA Tour statistics are publicly accessible and have no redistribution restrictions for non-commercial research use. Equipment data comes from published journalism about publicly competing professional athletes. No personal or private information is included. Released under CC BY 4.0.
-
 **Relation to research questions:** This dataset directly addresses questions 1, 2, and 3 by providing SG:Putting averages alongside putter type classifications. It also addresses question 4 by documenting the process of turning model names into a blade/mallet variable.
 
 ---
@@ -61,9 +93,9 @@ The four research questions guiding this project are: (1) Do mallet users have h
 
 **Location:** data/raw/masters_2026_leaderboard_raw.csv (raw), data/cleaned/masters_2026_clean.csv (cleaned)
 
-**Source:** Multiple journalism sources collected April 13-14, 2026, right after the tournament ended. Sources include Golf Monthly WITB articles, EssentiallySports player profiles, Sky Sports final leaderboard, MyGolfSpy equipment reviews, and Wikipedia's 2026 Masters article.
+**Source:** Multiple journalism sources collected April 13-14, 2026, immediately after the tournament ended. Sources include Golf Monthly WITB articles, EssentiallySports player profiles, Sky Sports final leaderboard, MyGolfSpy equipment reviews, and Wikipedia's 2026 Masters article.
 
-**Access method:** Manual extraction from multiple public sources. Augusta National does not release Shotlink data publicly, and there is no structured database for Masters equipment. For the top finishers, I was able to use dedicated WITB articles to confirm equipment. For players further down the leaderboard I had to use pre-tournament coverage, which is less reliable.
+**Access method:** Manual extraction from multiple public sources. Augusta National does not release Shotlink data publicly and there is no structured database for Masters equipment. For the top finishers, dedicated WITB articles were used to confirm equipment. For players further down the leaderboard, pre-tournament coverage was used, which is less reliable. SHA-256 checksums are documented and verified by acquire.py.
 
 **Structure:** 44 rows, 12 columns (raw); 44 rows, 13 columns (cleaned, with a derived finish_num column).
 
@@ -80,8 +112,6 @@ The four research questions guiding this project are: (1) Do mallet users have h
 - source: String. Per-row citation
 
 **Coverage:** 40 players who made the cut, plus 4 missed-cut players included for context. The full field was 91 players.
-
-**Ethical and legal constraints:** All data comes from publicly available tournament results and equipment journalism. The leaderboard is public information. Released under CC BY 4.0 for the curated dataset; the original source articles retain their own copyrights.
 
 **Relation to research questions:** This dataset provides a tournament-level case study for questions 1, 2, and 3. Augusta's unusual green conditions also make it a useful comparison point against the regular-season PGA data.
 
@@ -152,7 +182,7 @@ These are descriptive results. The dataset size and sampling approach do not sup
 
 **Mallet prevalence among the best putters.** Among the 20 best putters on Tour in 2025, 17 used mallets (85%) and 3 used blades. Among the 20 worst, 11 used mallets (55%) and 9 used blades. That is a 30-point gap in mallet prevalence between the two groups. Figure 1 shows this.
 
-**Within each group, putter type barely matters.** This is the most interesting result. In the top 20, mallet users averaged +0.585 SG:Putting and blade users averaged +0.578. In the bottom 20, mallets averaged -0.553 and blades averaged -0.577. Neither gap is more than 0.025 strokes per round, which is essentially nothing. Figure 2 shows this clearly. The larger overall gap between all mallet users (+0.138 mean) and all blade users (-0.288 mean) is a composition effect. There are just more mallets in the high-performing group. Whether that reflects a real performance advantage or is a product of selection (better putters gravitating toward mallets) is something this data cannot answer.
+**Within each group, putter type barely matters.** This is the most interesting result. In the top 20, mallet users averaged +0.585 SG:Putting and blade users averaged +0.578. In the bottom 20, mallets averaged -0.553 and blades averaged -0.577. Neither gap exceeds 0.025 strokes per round, which is essentially nothing. Figure 2 shows this clearly. The larger overall gap between all mallet users (+0.138 mean) and all blade users (-0.288 mean) is a composition effect. There are just more mallets in the high-performing group. Whether that reflects a real performance advantage or is a product of selection is something this data cannot answer.
 
 **The Masters is consistent with the season data.** Nine of the top 10 finishers at the 2026 Masters used mallets (90%). The one exception was Collin Morikawa, whose results at Augusta tend to be driven by his iron play more than his putting. Among all 40 players who made the cut, 30 used mallets (75%) and 10 used blades. Mallet users averaged -6.23 to par; blade users averaged -5.70, a gap of about half a stroke over 72 holes. Figure 4 shows the breakdown by finish tier.
 
@@ -178,9 +208,9 @@ One thing I built into the dataset but have not analyzed yet is the putter_era c
 
 ## Challenges
 
-**JavaScript-rendered data sources.** The original plan was to scrape ESPN's stats page and GolfWRX's What's In The Bag forum. Neither worked well. ESPN's tables are rendered with JavaScript, so a normal HTTP request returns an empty page. GolfWRX is forum content with no consistent formatting across posts. I switched to the Eden Steak article for the PGA stats and dedicated journalism for the equipment data. The outcome was actually better in terms of data quality and metric choice, but it meant rethinking the acquisition approach partway through.
+**JavaScript-rendered data sources.** The original plan was to scrape ESPN's stats page and GolfWRX's What's In The Bag forum. Neither worked well. ESPN's tables are rendered with JavaScript, so a normal HTTP request returns an empty page. GolfWRX is forum content with no consistent formatting across posts. I switched to the Eden Steak article for the PGA stats and dedicated journalism for the equipment data. The outcome was better in terms of data quality and metric choice, but it meant rethinking the acquisition approach partway through.
 
-**No structured source for Masters equipment data.** Augusta National does not release Shotlink data publicly, and there is no equipment database for Masters fields. Building the Masters dataset meant going through multiple sources for each player individually, rating confidence by source type, and documenting everything. It was more labor intensive than a structured API would have been and introduces variability in source reliability across the dataset.
+**No structured source for Masters equipment data.** Augusta National does not release Shotlink data publicly and there is no equipment database for Masters fields. Building the Masters dataset meant going through multiple sources for each player individually, rating confidence by source type, and documenting everything. It was more labor intensive than a structured API would have been and introduces variability in source reliability across the dataset.
 
 **Mid-season equipment switches.** At least three players in the PGA 2025 dataset changed putters during the season. The clearest case is Ben Griffin, whose SG:Putting average reflects months with a blade and months with a mallet, but who gets one classification in the dataset. The dominant-season approach is the best available option with the information I had, but it is an imperfect solution.
 
@@ -210,6 +240,12 @@ cd JF-IS477-Project
 pip install -r requirements.txt
 ```
 
+For an exact environment match, use requirements_frozen.txt instead:
+
+```
+pip install -r requirements_frozen.txt
+```
+
 **Step 3: Run the full pipeline**
 
 ```
@@ -217,7 +253,8 @@ python run_all.py
 ```
 
 This runs four steps in order:
-1. scripts/acquire.py verifies SHA-256 checksums of the raw data files
+
+1. scripts/acquire.py verifies SHA-256 checksums of the raw data files against known-good values recorded at collection time. Note: the raw data files were manually curated from publicly available journalism and statistics sources (documented in the source column of each file) and cannot be re-fetched programmatically. The acquire.py script confirms the files are intact and unmodified. If you need to reconstruct the raw data from scratch, follow the source citations in each CSV row and the documentation in datasets.md.
 2. clean_and_integrate.ipynb cleans both datasets and produces the integrated CSV
 3. quality_assesment.ipynb runs quality checks and writes logs/quality_report.txt
 4. scripts/analysis.py generates summary statistics and saves the four figures to results/
@@ -234,13 +271,17 @@ This runs four steps in order:
 - results/fig3_scatter_sg_rank.png
 - results/fig4_masters_tiers.png
 
-**Note on raw data:** The raw CSV files are included in the repository and do not need to be re-downloaded. They were built from public sources documented in the source column of each file. The acquire.py script verifies their integrity via SHA-256 checksums but does not re-fetch anything from the web.
-
 **Note on notebooks:** The pipeline runs the notebooks using nbconvert. If that fails for any reason, you can also run them manually by opening Jupyter and executing clean_and_integrate.ipynb first, then quality_assesment.ipynb.
 
 ```
 jupyter notebook
 ```
+
+---
+
+## Contribution Statement
+
+This project was completed individually with instructor approval. All work including data acquisition, cleaning, integration, quality assessment, analysis, visualization, and documentation was done by Jack Forman. Commit history in the GitHub repository reflects individual contributions at each stage of the project.
 
 ---
 
