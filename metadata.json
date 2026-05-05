@@ -1,0 +1,114 @@
+{
+  "@context": "https://schema.org/",
+  "@type": "Dataset",
+  "name": "Blade vs. Mallet: PGA Tour Putting Performance and Putter Design (2025-2026)",
+  "description": "An integrated dataset combining 2025 PGA Tour Strokes Gained: Putting statistics (top and bottom 20 players) with putter equipment classifications (blade or mallet), supplemented by a 2026 Masters Tournament leaderboard and equipment dataset. Created to investigate whether putter design is associated with measurable differences in putting performance among PGA Tour professionals.",
+  "url": "https://github.com/jacktforman/JF-IS477-Project",
+  "identifier": "https://github.com/jacktforman/JF-IS477-Project",
+  "creator": {
+    "@type": "Person",
+    "name": "Jack Forman",
+    "affiliation": {
+      "@type": "Organization",
+      "name": "University of Illinois Urbana-Champaign"
+    }
+  },
+  "dateCreated": "2026-04",
+  "dateModified": "2026-05",
+  "datePublished": "2026-05",
+  "license": [
+    {
+      "@type": "CreativeWork",
+      "name": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+      "url": "https://creativecommons.org/licenses/by/4.0/",
+      "description": "Applies to curated data files in data/"
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "MIT License",
+      "url": "https://opensource.org/licenses/MIT",
+      "description": "Applies to all code and scripts in scripts/"
+    }
+  ],
+  "keywords": [
+    "PGA Tour",
+    "golf",
+    "putting",
+    "strokes gained",
+    "equipment analysis",
+    "blade putter",
+    "mallet putter",
+    "sports analytics",
+    "2025",
+    "2026 Masters"
+  ],
+  "temporalCoverage": "2025/2026",
+  "spatialCoverage": "PGA Tour (United States), Augusta National Golf Club",
+  "variableMeasured": [
+    {
+      "@type": "PropertyValue",
+      "name": "sg_putting_avg",
+      "description": "Strokes Gained: Putting season average. Measures putting performance relative to field average, adjusted for putt distance."
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "putter_type",
+      "description": "Categorical classification of putter design: blade or mallet."
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "score_to_par",
+      "description": "72-hole score relative to par at the 2026 Masters Tournament."
+    }
+  ],
+  "hasPart": [
+    {
+      "@type": "Dataset",
+      "name": "2025 PGA Tour SG:Putting (Top/Bottom 20)",
+      "description": "40 player records covering the top 20 and bottom 20 players by SG:Putting for the 2025 PGA Tour season.",
+      "contentUrl": "data/raw/pga_tour_sgputt_2025_raw.csv",
+      "encodingFormat": "text/csv"
+    },
+    {
+      "@type": "Dataset",
+      "name": "2026 Masters Tournament Leaderboard and Equipment",
+      "description": "44 player records from the 2026 Masters Tournament including finish position, round scores, and putter equipment classifications.",
+      "contentUrl": "data/raw/masters_2026_leaderboard_raw.csv",
+      "encodingFormat": "text/csv"
+    },
+    {
+      "@type": "Dataset",
+      "name": "Integrated Putter Analysis Dataset",
+      "description": "Full outer join of the two cleaned datasets on player name. 75 unique player records.",
+      "contentUrl": "data/integrated/integrated_putter_analysis.csv",
+      "encodingFormat": "text/csv"
+    }
+  ],
+  "isBasedOn": [
+    {
+      "@type": "WebPage",
+      "name": "PGA Tour Official Statistics -- Putting (2025)",
+      "url": "https://www.pgatour.com/stats/putting"
+    },
+    {
+      "@type": "WebPage",
+      "name": "Eden Steak: Blade vs. Mallet Analysis",
+      "url": "https://edensteak.com/?p=33"
+    },
+    {
+      "@type": "WebPage",
+      "name": "Golf Monthly WITB Coverage 2026",
+      "url": "https://www.golfmonthly.com"
+    }
+  ],
+  "distribution": {
+    "@type": "DataDownload",
+    "encodingFormat": "text/csv",
+    "contentUrl": "https://github.com/jacktforman/JF-IS477-Project/tree/main/data"
+  },
+  "inLanguage": "en",
+  "publisher": {
+    "@type": "Organization",
+    "name": "University of Illinois Urbana-Champaign, School of Information Sciences"
+  }
+}

@@ -1,0 +1,159 @@
+DATA QUALITY REPORT
+Project: Blade vs. Mallet – PGA Tour Putting Performance
+Generated: 2026-05-05 11:20 local time
+Author: Jack Forman | IS477 SP26
+
+============================================================
+  DATASET 1 – 2025 PGA Tour SG:Putting
+============================================================
+
+Shape: 40 rows × 11 columns
+Season: [2025]
+Source: PGA Tour official stats / Eden Steak analysis (edensteak.com)
+Access date: April 2026
+License: PGA Tour stats – publicly available; educational use
+
+[PGA 2025] Completeness check:
+  rank                                  0 missing  (0.0%)
+  player_name                           0 missing  (0.0%)
+  sg_putting_avg                        0 missing  (0.0%)
+  putter_type                           0 missing  (0.0%)
+  putter_brand                          0 missing  (0.0%)
+  putter_model                          0 missing  (0.0%)
+  putter_release_year                   0 missing  (0.0%)
+  group                                 0 missing  (0.0%)
+  season                                0 missing  (0.0%)
+  source                                0 missing  (0.0%)
+  putter_era                            0 missing  (0.0%)
+
+[PGA 2025] Uniqueness check on ['player_name', 'season']:
+  Duplicate rows: 0
+
+[PGA 2025] Validity check – column 'putter_type':
+putter_type
+mallet    28
+blade     12
+  Invalid values: 0 ✓
+
+[PGA 2025] Value range check – sg_putting_avg:
+  Min:  -0.970
+  Max:  0.983
+  Mean: 0.010
+  Std:  0.607
+  Expected range for season averages: [-1.5, +1.5]  ✓
+
+[PGA 2025] Coverage note:
+  Dataset covers only top 20 and bottom 20 players by SG:Putting.
+  The 120 middle-ranked players are not included in this dataset.
+  This is a known limitation: analysis reflects extremes, not the full distribution.
+  Ben Griffin (rank 19) switched from blade to mallet mid-season –
+  he is classified as blade per his dominant-season designation but
+  this introduces measurement uncertainty for ~1-3 players who switched.
+
+============================================================
+  DATASET 2 – 2026 Masters Tournament Leaderboard
+============================================================
+
+Shape: 44 rows × 13 columns
+Tournament: 2026 Masters, Augusta National, April 9-12 2026
+Source: Golf Monthly WITB articles, EssentiallySports, Sky Sports, Wikipedia
+Access date: April 13-14, 2026
+License: Publicly available equipment/results journalism; educational use
+
+[Masters 2026] Completeness check:
+  finish                                0 missing  (0.0%)
+  player_name                           0 missing  (0.0%)
+  score_to_par                          0 missing  (0.0%)
+  r1                                    0 missing  (0.0%)
+  r2                                    0 missing  (0.0%)
+  r3                                    4 missing  (9.1%) ⚠
+  r4                                    4 missing  (9.1%) ⚠
+  putter_type                           0 missing  (0.0%)
+  putter_brand                          0 missing  (0.0%)
+  putter_model                          0 missing  (0.0%)
+  putter_notes                          0 missing  (0.0%)
+  source                                0 missing  (0.0%)
+  finish_num                            0 missing  (0.0%)
+
+[Masters 2026] Uniqueness check on ['player_name']:
+  Duplicate rows: 0
+
+[Masters 2026] Validity check – column 'putter_type':
+putter_type
+mallet    32
+blade     12
+  Invalid values: 0 ✓
+
+============================================================
+  INTEGRATED DATASET
+============================================================
+
+Shape: 75 rows × 16 columns
+
+[Integrated] Completeness check:
+  player_name                           0 missing  (0.0%)
+  pga_2025_rank                        35 missing  (46.7%) ⚠
+  pga_2025_sg_putt                     35 missing  (46.7%) ⚠
+  putter_type_2025                     35 missing  (46.7%) ⚠
+  putter_brand_2025                    35 missing  (46.7%) ⚠
+  putter_model_2025                    35 missing  (46.7%) ⚠
+  pga_2025_group                       35 missing  (46.7%) ⚠
+  season                               35 missing  (46.7%) ⚠
+  masters_2026_finish                  35 missing  (46.7%) ⚠
+  masters_2026_finish_num              35 missing  (46.7%) ⚠
+  masters_2026_score                   35 missing  (46.7%) ⚠
+  putter_type_masters                  35 missing  (46.7%) ⚠
+  putter_brand_masters                 35 missing  (46.7%) ⚠
+  putter_model_masters                 35 missing  (46.7%) ⚠
+  putter_consistency                    0 missing  (0.0%)
+  putter_type_unified                   0 missing  (0.0%)
+
+[Integrated] Player overlap between datasets:
+  In both datasets: 5 players
+  PGA 2025 only:    35 players
+  Masters only:     35 players
+
+  Players appearing in both datasets: ['Cameron Young', 'Jake Knapp', 'Rory Mcilroy', 'Sam Burns', 'Tommy Fleetwood']
+  (These players allow direct cross-dataset comparison)
+
+[Integrated] Putter type consistency for shared players:
+    player_name putter_type_2025 putter_type_masters putter_consistency
+  Cameron Young           mallet              mallet         consistent
+     Jake Knapp           mallet              mallet         consistent
+   Rory Mcilroy           mallet              mallet         consistent
+      Sam Burns           mallet              mallet         consistent
+Tommy Fleetwood           mallet              mallet         consistent
+
+============================================================
+  OVERALL QUALITY SUMMARY
+============================================================
+
+DIMENSION        ASSESSMENT
+─────────────────────────────────────────────────────────
+Completeness     PGA 2025: 100% complete (no missing values)
+                 Masters 2026: r3/r4 null for 4 MC players (expected)
+                 Integrated: partial overlap by design (different populations)
+
+Validity         All putter_type values are valid controlled vocabulary
+                 (blade / mallet / unknown). SG:Putting values within
+                 expected real-world range for season averages.
+
+Consistency      5 players appear in both datasets; all 5 show consistent
+                 putter type classifications across sources. No contradictions
+                 detected. One known mid-season switcher (Ben Griffin)
+                 is documented with a note.
+
+Uniqueness       No duplicate player records in any dataset.
+
+Timeliness       PGA 2025 data reflects completed 2025 FedExCup season.
+                 Masters 2026 data collected April 13-14, 2026,
+                 immediately after tournament conclusion.
+
+Coverage         Intentional limitation: PGA 2025 covers only top/bottom 20
+                 players (extremes). Masters 2026 covers 44 players
+                 (full field cut + 4 MC players). Future work should
+                 expand PGA dataset to cover all ~180 ranked players.
+
+Provenance       All sources documented per-row in source column.
+                 Multiple corroborating sources used for top finishers.
+                 Lower-confidence records flagged in notes column.

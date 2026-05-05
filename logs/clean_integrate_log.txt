@@ -1,0 +1,66 @@
+=== Notebook run: 2026-05-05T16:20:24.614446+00:00 UTC ===
+
+
+── Dataset 1: 2025 PGA Tour SG:Putting ──
+Loaded 40 rows, 10 columns
+  Missing values per column:
+  No missing values found.
+  Deduplicated: 40 → 40 rows
+  Saved: .\data\cleaned\pga_sgputt_2025_clean.csv  SHA-256=88403a4fe515cbcd7658ed1ebc5d422104f9421697c2b7ce0f2a2e16298910b0
+
+── Dataset 2: 2026 Masters Leaderboard ──
+Loaded 44 rows, 12 columns
+  Made cut: 40 players | Missed cut: 4 players
+  Missing values per column:
+r3    4
+r4    4
+  Saved: .\data\cleaned\masters_2026_clean.csv  SHA-256=8b4fd7ea65ae01ca7c4bded360eb4098be034c62444c558868311cd50c7db7c7
+  Integrated dataset: 75 player rows
+  Players in both datasets: 5
+  Only in PGA 2025 data: 35
+  Only in Masters data:  35
+
+  Putter consistency breakdown:
+putter_consistency
+only_in_one_dataset    70
+consistent              5
+
+  Saved: .\data\integrated\integrated_putter_analysis.csv  SHA-256=b76531990cbe4bb93b0d505c912e8b37659d5dd4b9531f0e42ad1b86a2293db0
+
+── Summary Statistics ──
+
+[PGA 2025 – Top 20 putter type breakdown]
+putter_type
+mallet    17
+blade      3
+  Top 20 mean SG:Putt by type:
+putter_type
+blade     0.578
+mallet    0.585
+
+[PGA 2025 – Bottom 20 putter type breakdown]
+putter_type
+mallet    11
+blade      9
+  Bottom 20 mean SG:Putt by type:
+putter_type
+blade    -0.577
+mallet   -0.553
+
+[Masters 2026 – made cut, putter type breakdown]
+putter_type
+mallet    30
+blade     10
+
+[Masters 2026 – top 10 finishers putter type]
+      player_name finish putter_type                     putter_model
+     Rory Mcilroy      1      mallet                    Spider Tour X
+Scottie Scheffler      2      mallet                    Spider L-Neck
+   Tyrrell Hatton     T3      mallet                        Ai-One #7
+      Justin Rose     T3      mallet              Phantom X prototype
+    Cameron Young     T3      mallet      Phantom 9.5R Tour Prototype
+   Russell Henley     T3      mallet         Phantom 5 Tour Prototype
+  Collin Morikawa     T7       blade Scotty Cameron Newport prototype
+        Sam Burns     T7      mallet                       Ai-One #7S
+         Max Homa     T9      mallet                 Ai-One Milled #7
+Xander Schauffele     T9      mallet                     Phantom X 12

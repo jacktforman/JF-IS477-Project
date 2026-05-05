@@ -1,0 +1,36 @@
+============================================================
+ANALYSIS RESULTS -- Blade vs. Mallet Project
+============================================================
+
+--- 2025 PGA Tour: Top 20 ---
+  Mallet: 17 players (85%)
+  Blade:  3 players (15%)
+  Mean SG:Putting (mallet): 0.585
+  Mean SG:Putting (blade):  0.578
+
+--- 2025 PGA Tour: Bottom 20 ---
+  Mallet: 11 players (55%)
+  Blade:  9 players (45%)
+  Mean SG:Putting (mallet): -0.553
+  Mean SG:Putting (blade):  -0.577
+
+--- Overall PGA 2025 (all 40 players) ---
+              mean    std  count
+putter_type                     
+blade       -0.288  0.554     12
+mallet       0.138  0.592     28
+
+--- 2026 Masters: Made cut ---
+  Mallet: 30 players (75%)
+  Blade:  10 players (25%)
+  Mean score to par (mallet): -6.23
+  Mean score to par (blade):  -5.70
+
+--- 2026 Masters: Top 10 ---
+  Mallet: 9 players (90%)
+  Blade:  1 players (10%)
+
+Figure 1 saved: c:\Users\jackt\OneDrive - University of Illinois - Urbana\Assigments\IS477 Project\JF-IS477-Project\scripts\..\results\fig1_putter_distribution.png
+Figure 2 saved: c:\Users\jackt\OneDrive - University of Illinois - Urbana\Assigments\IS477 Project\JF-IS477-Project\scripts\..\results\fig2_mean_sg_by_group.png
+Figure 3 saved: c:\Users\jackt\OneDrive - University of Illinois - Urbana\Assigments\IS477 Project\JF-IS477-Project\scripts\..\results\fig3_scatter_sg_rank.png
+Figure 4 saved: c:\Users\jackt\OneDrive - University of Illinois - Urbana\Assigments\IS477 Project\JF-IS477-Project\scripts\..\results\fig4_masters_tiers.png

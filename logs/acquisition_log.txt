@@ -1,0 +1,21 @@
+Acquisition log -- 2026-05-05T16:20:19.896900 UTC
+============================================================
+Project: Blade vs. Mallet -- PGA Tour Putting Performance
+Author: Jack Forman | IS477 SP26
+
+File: pga_tour_sgputt_2025_raw.csv
+  Source: PGA Tour official statistics (2025 season) compiled via Eden Steak analysis. Source: https://edensteak.com/?p=33 / https://www.pgatour.com/stats/putting. Collected: April 2026. License: Publicly available; educational use.
+  Expected SHA-256: f42a0b4911bb31ee61af092ab963d171fbcf94a4c3c1242fc2f9acee3610c34c
+  Actual SHA-256:   f42a0b4911bb31ee61af092ab963d171fbcf94a4c3c1242fc2f9acee3610c34c
+  Integrity check: PASSED
+  File size: 5.2 KB
+
+File: masters_2026_leaderboard_raw.csv
+  Source: 2026 Masters Tournament leaderboard and equipment data compiled from multiple journalism sources (Golf Monthly, EssentiallySports, Sky Sports, MyGolfSpy, Wikipedia). Collected: April 13-14, 2026. License: Publicly available journalism; educational use.
+  Expected SHA-256: eca7d1e34abd5cdcfda709b90e2549716cefa525eb4232583e567d95d67b5cfd
+  Actual SHA-256:   eca7d1e34abd5cdcfda709b90e2549716cefa525eb4232583e567d95d67b5cfd
+  Integrity check: PASSED
+  File size: 6.2 KB
+
+============================================================
+Overall result: ALL CHECKS PASSED
